@@ -266,6 +266,27 @@ public class PurchaseDAO implements BaseDAO<Purchase, Integer> {
     }
     
     /**
+     * Get average purchase rate for an item (weighted by quantity)
+     */
+    public BigDecimal getAveragePurchaseRateByItemId(int itemId) throws SQLException {
+        String sql = "SELECT COALESCE(SUM(purchase_rate * quantity) / SUM(quantity), 0) " +
+                    "FROM purchases WHERE item_id = ? AND quantity > 0";
+        
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setInt(1, itemId);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getBigDecimal(1);
+                }
+            }
+        }
+        return BigDecimal.ZERO;
+    }
+    
+    /**
      * Map ResultSet to Purchase object
      */
     private Purchase mapResultSetToPurchase(ResultSet rs) throws SQLException {

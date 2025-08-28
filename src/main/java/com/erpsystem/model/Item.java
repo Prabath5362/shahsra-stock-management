@@ -67,58 +67,6 @@ public class Item {
         this.category.set(category);
     }
     
-    // Purchase Rate Property
-    public ObjectProperty<BigDecimal> purchaseRateProperty() {
-        return purchaseRate;
-    }
-    
-    public BigDecimal getPurchaseRate() {
-        return purchaseRate.get();
-    }
-    
-    public void setPurchaseRate(BigDecimal purchaseRate) {
-        this.purchaseRate.set(purchaseRate);
-    }
-    
-    // Sales Rate Property
-    public ObjectProperty<BigDecimal> salesRateProperty() {
-        return salesRate;
-    }
-    
-    public BigDecimal getSalesRate() {
-        return salesRate.get();
-    }
-    
-    public void setSalesRate(BigDecimal salesRate) {
-        this.salesRate.set(salesRate);
-    }
-    
-    // Purchase Rate Property
-    public ObjectProperty<BigDecimal> purchaseRateProperty() {
-        return purchaseRate;
-    }
-    
-    public BigDecimal getPurchaseRate() {
-        return purchaseRate.get();
-    }
-    
-    public void setPurchaseRate(BigDecimal purchaseRate) {
-        this.purchaseRate.set(purchaseRate);
-    }
-    
-    // Sales Rate Property
-    public ObjectProperty<BigDecimal> salesRateProperty() {
-        return salesRate;
-    }
-    
-    public BigDecimal getSalesRate() {
-        return salesRate.get();
-    }
-    
-    public void setSalesRate(BigDecimal salesRate) {
-        this.salesRate.set(salesRate);
-    }
-    
     // Created Date Property
     public ObjectProperty<LocalDateTime> createdDateProperty() {
         return createdDate;

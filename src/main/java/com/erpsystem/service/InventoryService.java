@@ -56,13 +56,17 @@ public class InventoryService {
         int totalSold = saleDAO.getTotalQuantityByItemId(item.getItemId());
         int balanceQuantity = totalPurchased - totalSold;
         
+        // Get average rates from actual transactions
+        BigDecimal avgPurchaseRate = purchaseDAO.getAveragePurchaseRateByItemId(item.getItemId());
+        BigDecimal avgSalesRate = saleDAO.getAverageSalesRateByItemId(item.getItemId());
+        
         return new InventoryItem(
             item.getItemId(),
             item.getName(),
             item.getCategory(),
             balanceQuantity,
-            item.getPurchaseRate(),
-            item.getSalesRate()
+            avgPurchaseRate,
+            avgSalesRate
         );
     }
     
