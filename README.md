@@ -27,11 +27,20 @@ A complete Enterprise Resource Planning (ERP) desktop application built with Jav
 - **Dashboard Metrics**: Key performance indicators with charts
 
 ### User Interface
-- **Modern Design**: Clean, responsive interface with dark/light theme support
+- **Professional Design**: Clean, modern interface with comprehensive dark/light theme support
+- **Light Theme Default**: Starts with professional light theme, with full dark theme available
+- **Full Screen Experience**: Maximized window with visible controls (minimize, maximize, close)
+- **Complete Theme Coverage**: All UI components styled consistently including:
+  - Forms, tables, buttons, and navigation
+  - Dialogs, alerts, and popup menus
+  - Charts, progress indicators, and status elements
+  - Scrollbars, separators, and interactive controls
+  - Sidebar, header, and status bar properly switch themes
 - **Dashboard**: Visual charts and key metrics overview
-- **Sidebar Navigation**: Easy access to all modules
-- **Data Tables**: Sortable, searchable data grids
-- **Form Validation**: Input validation and error handling
+- **Sidebar Navigation**: Easy access to all modules with professional styling
+- **Data Tables**: Sortable, searchable data grids with enhanced readability
+- **Form Validation**: Input validation and error handling with consistent styling
+- **Window Management**: Proper fullscreen handling with accessible window controls
 
 ## 🛠️ Technology Stack
 
@@ -192,10 +201,21 @@ Includes pre-loaded purchase and sales transactions to demonstrate:
 - Complex calculations (inventory, finance)
 - Cross-entity operations and reporting
 
-### Theme System
-- CSS-based styling with CSS custom properties
-- Runtime theme switching capability
-- Consistent color palette and typography
+### Enhanced Theme System
+- **Professional Light Theme**: Clean, modern light theme with proper contrast and readability (default)
+- **Professional Dark Theme**: GitHub-inspired dark theme available via toggle
+- **Comprehensive Coverage**: All JavaFX components styled consistently
+- **Perfect Theme Switching**: Sidebar, header, and all elements properly switch themes
+- **CSS-Based Architecture**: FXML uses CSS classes instead of inline styles
+- **Dialog Integration**: Alerts and dialogs automatically inherit current theme
+- **Color Harmony**: Carefully selected color palette for professional appearance
+- **Accessibility**: Proper contrast ratios and readable typography
+- **Component Coverage**: 
+  - Navigation, buttons, forms, and tables
+  - Dialogs, menus, and context menus
+  - Charts, progress bars, and status indicators
+  - Scrollbars, tabs, checkboxes, and sliders
+  - All interactive elements with hover and focus states
 
 ## 🔧 Customization
 

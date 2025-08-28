@@ -9,29 +9,29 @@
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.erpsystem.controller.MainController">
    
    <top>
-      <VBox style="-fx-background-color: #f0f0f0; -fx-border-color: #cccccc; -fx-border-width: 0 0 1 0; -fx-padding: 15 20;">
+      <VBox styleClass="header">
          <HBox alignment="CENTER_LEFT" spacing="20.0">
             <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-               <Label fx:id="headerTitle" text="ERP System Dashboard" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;">
+               <Label fx:id="headerTitle" text="ERP System Dashboard" styleClass="header-title">
                   <font>
                      <Font name="System Bold" size="24.0" />
                   </font>
                </Label>
-               <Label fx:id="headerSubtitle" text="Inventory &amp; Sales Management System" style="-fx-font-size: 14px; -fx-text-fill: #666666;" />
+               <Label fx:id="headerSubtitle" text="Inventory &amp; Sales Management System" styleClass="header-subtitle" />
             </VBox>
             <HBox alignment="CENTER_RIGHT" spacing="15.0">
-               <Button fx:id="themeToggleBtn" onAction="#toggleTheme" text="🌙" style="-fx-background-color: transparent; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-padding: 8;" />
-               <Label fx:id="currentUserLabel" text="Administrator" style="-fx-font-size: 14px; -fx-text-fill: #666666;" />
+               <Button fx:id="themeToggleBtn" onAction="#toggleTheme" text="🌙" styleClass="button,secondary" />
+               <Label fx:id="currentUserLabel" text="Administrator" styleClass="header-subtitle" />
             </HBox>
          </HBox>
       </VBox>
    </top>
    
    <left>
-      <VBox fx:id="sidebar" prefWidth="250.0" style="-fx-background-color: #f8f8f8; -fx-border-color: #cccccc; -fx-border-width: 0 1 0 0;">
+      <VBox fx:id="sidebar" prefWidth="250.0" styleClass="sidebar">
          
          <VBox alignment="CENTER" spacing="10.0" style="-fx-padding: 20;">
-            <Label text="ERP System" style="-fx-font-size: 16px; -fx-font-weight: bold;">
+            <Label text="ERP System" styleClass="label,subtitle">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -42,11 +42,11 @@
             
             <Button fx:id="dashboardBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
                     onAction="#showDashboard" text="📊 Dashboard" 
-                    style="-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 15 20; -fx-alignment: center-left; -fx-border-width: 0 0 1 0; -fx-border-color: #cccccc;" />
+                    styleClass="nav-button,active" />
             
             <Separator />
             
-            <Label text="Master Data" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #666666;">
+            <Label text="Master Data" styleClass="nav-section-label">
                <padding>
                   <Insets bottom="5.0" left="20.0" right="20.0" top="15.0" />
                </padding>
@@ -57,19 +57,19 @@
             
             <Button fx:id="suppliersBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
                     onAction="#showSuppliers" text="🏢 Suppliers" 
-                    style="-fx-background-color: transparent; -fx-text-fill: #333333; -fx-padding: 15 20; -fx-alignment: center-left; -fx-border-width: 0 0 1 0; -fx-border-color: #cccccc;" />
+                    styleClass="nav-button" />
             
             <Button fx:id="customersBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
                     onAction="#showCustomers" text="👥 Customers" 
-                    style="-fx-background-color: transparent; -fx-text-fill: #333333; -fx-padding: 15 20; -fx-alignment: center-left; -fx-border-width: 0 0 1 0; -fx-border-color: #cccccc;" />
+                    styleClass="nav-button" />
             
             <Button fx:id="itemsBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
                     onAction="#showItems" text="📦 Items" 
-                    style="-fx-background-color: transparent; -fx-text-fill: #333333; -fx-padding: 15 20; -fx-alignment: center-left; -fx-border-width: 0 0 1 0; -fx-border-color: #cccccc;" />
+                    styleClass="nav-button" />
             
             <Separator />
             
-            <Label text="Transactions" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #666666;">
+            <Label text="Transactions" styleClass="nav-section-label">
                <padding>
                   <Insets bottom="5.0" left="20.0" right="20.0" top="15.0" />
                </padding>
@@ -80,15 +80,15 @@
             
             <Button fx:id="purchasingBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
                     onAction="#showPurchasing" text="🛒 Purchasing" 
-                    style="-fx-background-color: transparent; -fx-text-fill: #333333; -fx-padding: 15 20; -fx-alignment: center-left; -fx-border-width: 0 0 1 0; -fx-border-color: #cccccc;" />
+                    styleClass="nav-button" />
             
             <Button fx:id="salesBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
                     onAction="#showSales" text="💰 Sales" 
-                    style="-fx-background-color: transparent; -fx-text-fill: #333333; -fx-padding: 15 20; -fx-alignment: center-left; -fx-border-width: 0 0 1 0; -fx-border-color: #cccccc;" />
+                    styleClass="nav-button" />
             
             <Separator />
             
-            <Label text="Reports" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #666666;">
+            <Label text="Reports" styleClass="nav-section-label">
                <padding>
                   <Insets bottom="5.0" left="20.0" right="20.0" top="15.0" />
                </padding>
@@ -99,15 +99,15 @@
             
             <Button fx:id="inventoryBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
                     onAction="#showInventory" text="📋 Inventory" 
-                    style="-fx-background-color: transparent; -fx-text-fill: #333333; -fx-padding: 15 20; -fx-alignment: center-left; -fx-border-width: 0 0 1 0; -fx-border-color: #cccccc;" />
+                    styleClass="nav-button" />
             
             <Button fx:id="financeBtn" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" 
                     onAction="#showFinance" text="💹 Finance" 
-                    style="-fx-background-color: transparent; -fx-text-fill: #333333; -fx-padding: 15 20; -fx-alignment: center-left; -fx-border-width: 0 0 1 0; -fx-border-color: #cccccc;" />
+                    styleClass="nav-button" />
          </VBox>
          
          <VBox alignment="CENTER" spacing="5.0" style="-fx-padding: 20;">
-            <Label text="Version 1.0.0" style="-fx-font-size: 10px; -fx-text-fill: #999999;">
+            <Label text="Version 1.0.0" styleClass="version-label">
                <font>
                   <Font size="10.0" />
                </font>
@@ -118,16 +118,16 @@
    </left>
    
    <center>
-      <StackPane fx:id="contentArea" style="-fx-background-color: white; -fx-padding: 20;">
-         <Label text="Welcome to ERP System" style="-fx-font-size: 24px; -fx-text-fill: #666666;" />
+      <StackPane fx:id="contentArea" styleClass="content-area">
+         <Label text="Welcome to ERP System" styleClass="welcome-label" />
       </StackPane>
    </center>
    
    <bottom>
-      <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-padding: 10 20; -fx-border-color: #cccccc; -fx-border-width: 1 0 0 0; -fx-background-color: #f8f8f8;">
-         <Label fx:id="statusLabel" text="Ready" style="-fx-text-fill: #333333;" />
+      <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="status-bar">
+         <Label fx:id="statusLabel" text="Ready" styleClass="status-text" />
          <Region HBox.hgrow="ALWAYS" />
-         <Label fx:id="connectionStatusLabel" text="Database: Connected" style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 4 8; -fx-font-size: 11px; -fx-font-weight: bold;" />
+         <Label fx:id="connectionStatusLabel" text="Database: Connected" styleClass="status-success" />
       </HBox>
    </bottom>
    

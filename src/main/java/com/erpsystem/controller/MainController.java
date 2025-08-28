@@ -56,7 +56,7 @@ public class MainController implements Initializable {
         activeButton = dashboardBtn;
         updateActiveButton(dashboardBtn);
         
-        // Update theme toggle button text based on current theme
+        // Update theme toggle button text based on current theme (now starting with dark)
         updateThemeToggleButton();
         
         // Check database connection status
@@ -64,6 +64,9 @@ public class MainController implements Initializable {
         
         // Load default view (Dashboard)
         showDashboard();
+        
+        // Update status to reflect light theme start
+        updateStatus("Welcome to ERP System - Light theme enabled");
     }
     
     @FXML

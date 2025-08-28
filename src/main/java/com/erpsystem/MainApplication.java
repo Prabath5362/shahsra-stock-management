@@ -33,15 +33,24 @@ public class MainApplication extends Application {
         
         // Load the main layout
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/main-layout.fxml"));
-        currentScene = new Scene(fxmlLoader.load(), 1200, 800);
+        currentScene = new Scene(fxmlLoader.load(), 1400, 900);
         
-        // Apply default theme (light theme) to provide styling from start
+        // Apply light theme as default
         applyTheme(false);
         
-        primaryStage.setTitle("ERP System - Inventory & Sales Management");
+        primaryStage.setTitle("ERP System - Enterprise Resource Planning");
         primaryStage.setScene(currentScene);
-        primaryStage.setMinWidth(1000);
-        primaryStage.setMinHeight(600);
+        
+        // Set minimum size and make resizable
+        primaryStage.setMinWidth(1200);
+        primaryStage.setMinHeight(700);
+        primaryStage.setResizable(true);
+        
+        // Maximize window but keep window controls visible
+        primaryStage.setMaximized(true);
+        
+        // Ensure window stays on top briefly and then normal
+        primaryStage.setAlwaysOnTop(false);
         
         // Handle application close
         primaryStage.setOnCloseRequest(event -> {
@@ -49,6 +58,9 @@ public class MainApplication extends Application {
         });
         
         primaryStage.show();
+        
+        // Ensure window is properly maximized with controls visible
+        primaryStage.toFront();
     }
     
     /**
@@ -114,6 +126,10 @@ public class MainApplication extends Application {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
+        
+        // Apply current theme to dialog
+        applyThemeToDialog(alert);
+        
         alert.showAndWait();
     }
     
@@ -128,6 +144,10 @@ public class MainApplication extends Application {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
+        
+        // Apply current theme to dialog
+        applyThemeToDialog(alert);
+        
         alert.showAndWait();
     }
     
@@ -142,6 +162,10 @@ public class MainApplication extends Application {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
+        
+        // Apply current theme to dialog
+        applyThemeToDialog(alert);
+        
         alert.showAndWait();
     }
     
@@ -157,7 +181,22 @@ public class MainApplication extends Application {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
+        
+        // Apply current theme to dialog
+        applyThemeToDialog(alert);
+        
         return alert.showAndWait().orElse(null) == javafx.scene.control.ButtonType.OK;
+    }
+    
+    /**
+     * Apply current theme to a dialog
+     * 
+     * @param alert The alert dialog to style
+     */
+    private static void applyThemeToDialog(Alert alert) {
+        if (currentScene != null && !currentScene.getStylesheets().isEmpty()) {
+            alert.getDialogPane().getStylesheets().addAll(currentScene.getStylesheets());
+        }
     }
     
     public static void main(String[] args) {

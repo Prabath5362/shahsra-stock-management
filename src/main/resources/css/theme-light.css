@@ -5,8 +5,15 @@
     -fx-base: #ffffff;
     -fx-background: #ffffff;
     -fx-control-inner-background: #ffffff;
-    -fx-text-fill: #212121;
-    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-control-inner-background-alt: #f6f8fa;
+    -fx-accent: #0969da;
+    -fx-default-button: #0969da;
+    -fx-focus-color: #0969da;
+    -fx-faint-focus-color: rgba(9, 105, 218, 0.1);
+    -fx-text-fill: #24292f;
+    -fx-text-base-color: #24292f;
+    -fx-font-family: "Segoe UI", "Roboto", Arial, sans-serif;
+    -fx-font-size: 14px;
 }
 
 /* Main layout styling */
@@ -15,43 +22,37 @@
 }
 
 .sidebar {
-    -fx-background-color: #f5f5f5;
-    -fx-border-color: #e0e0e0;
+    -fx-background-color: #f6f8fa;
+    -fx-border-color: #d0d7de;
     -fx-border-width: 0 1 0 0;
 }
 
 .content-area {
     -fx-background-color: #ffffff;
-    -fx-padding: 20;
+    -fx-padding: 24;
 }
 
-/* Sidebar navigation styling */
-.nav-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: #212121;
-    -fx-font-size: 14px;
-    -fx-font-weight: 500;
-    -fx-padding: 15 20;
-    -fx-alignment: center-left;
+/* Header styling */
+.header {
+    -fx-background-color: #f6f8fa;
+    -fx-border-color: #d0d7de;
     -fx-border-width: 0 0 1 0;
-    -fx-border-color: #e0e0e0;
-    -fx-cursor: hand;
+    -fx-padding: 16 24;
 }
 
-.nav-button:hover {
-    -fx-background-color: #eeeeee;
-    -fx-text-fill: #2196f3;
+.header-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #24292f;
 }
 
-.nav-button:focused {
-    -fx-background-color: #e3f2fd;
-    -fx-text-fill: #1976d2;
+.header-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: #656d76;
+    -fx-padding: 4 0 0 0;
 }
 
-.nav-button.active {
-    -fx-background-color: #2196f3;
-    -fx-text-fill: white;
-}
+/* Sidebar navigation styling - will be moved after button styles for proper precedence */
 
 /* Header styling */
 .header {
@@ -114,6 +115,47 @@
     -fx-background-color: #f44336;
 }
 
+/* Navigation button styling - placed after generic button styles for proper CSS precedence */
+.nav-button {
+    -fx-background-color: transparent !important;
+    -fx-text-fill: #9ca3af !important;
+    -fx-font-size: 15px !important;
+    -fx-font-weight: 500 !important;
+    -fx-padding: 16 24 !important;
+    -fx-alignment: center-left;
+    -fx-border-width: 0 !important;
+    -fx-cursor: hand;
+    -fx-background-radius: 6 !important;
+    -fx-margin: 0 8 4 8;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(34, 134, 58, 0.1) !important;
+    -fx-text-fill: #1a7f37 !important;
+    -fx-background-radius: 6 !important;
+}
+
+.nav-button:pressed {
+    -fx-background-color: rgba(9, 105, 218, 0.15) !important;
+    -fx-text-fill: #0550ae !important;
+    -fx-background-radius: 6 !important;
+}
+
+.nav-button:focused {
+    -fx-background-color: rgba(9, 105, 218, 0.1) !important;
+    -fx-text-fill: #0969da !important;
+    -fx-border-color: #0969da !important;
+    -fx-border-width: 1 !important;
+    -fx-background-radius: 6 !important;
+}
+
+.nav-button.active {
+    -fx-background-color: #0969da !important;
+    -fx-text-fill: #ffffff !important;
+    -fx-background-radius: 6 !important;
+    -fx-border-width: 0 !important;
+}
+
 /* Form controls styling */
 .text-field, .text-area, .combo-box, .date-picker {
     -fx-background-color: white;
@@ -152,6 +194,42 @@
 .label.subtitle {
     -fx-font-size: 16px;
     -fx-font-weight: 600;
+}
+
+/* Navigation section labels */
+.nav-section-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #656d76;
+}
+
+/* Separator styling */
+.separator {
+    -fx-background-color: #e1e4e8;
+}
+
+/* Version label */
+.version-label {
+    -fx-font-size: 10px;
+    -fx-text-fill: #8b949e;
+}
+
+/* Welcome label */
+.welcome-label {
+    -fx-font-size: 24px;
+    -fx-text-fill: #656d76;
+}
+
+/* Status bar */
+.status-bar {
+    -fx-background-color: #f6f8fa;
+    -fx-border-color: #d0d7de;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 10 20;
+}
+
+.status-text {
+    -fx-text-fill: #24292f;
 }
 
 /* Table view styling */
