@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.erpsystem.controller.ItemsController">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   
+   <!-- Toolbar Section -->
+   <VBox styleClass="card">
+      <VBox styleClass="card-header">
+         <Label styleClass="card-title" text="Items Management">
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font>
+         </Label>
+      </VBox>
+      <VBox styleClass="card-content">
+         <HBox alignment="CENTER_LEFT" spacing="15.0">
+            <TextField fx:id="searchField" onKeyReleased="#searchItems" 
+                      promptText="Search items..." prefWidth="200.0" />
+            <ComboBox fx:id="categoryFilter" prefWidth="150.0" promptText="All Categories" />
+            <Button fx:id="addBtn" onAction="#addItem" styleClass="button,success" text="➕ Add Item" />
+            <Button fx:id="editBtn" onAction="#editItem" text="✏️ Edit" disable="true" />
+            <Button fx:id="deleteBtn" onAction="#deleteItem" styleClass="button,error" text="🗑️ Delete" disable="true" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="refreshBtn" onAction="#refreshData" styleClass="button,secondary" text="🔄 Refresh" />
+         </HBox>
+      </VBox>
+   </VBox>
+   
+   <!-- Items Table Section -->
+   <VBox styleClass="card" VBox.vgrow="ALWAYS">
+      <VBox styleClass="card-header">
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label styleClass="card-title" text="Items List">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="recordCountLabel" styleClass="label" text="0 records" />
+         </HBox>
+      </VBox>
+      <VBox styleClass="card-content" VBox.vgrow="ALWAYS">
+         <TableView fx:id="itemsTable" VBox.vgrow="ALWAYS">
+            <columns>
+               <TableColumn fx:id="itemIdColumn" prefWidth="60.0" text="ID" />
+               <TableColumn fx:id="nameColumn" prefWidth="300.0" text="Item Name" />
+               <TableColumn fx:id="categoryColumn" prefWidth="150.0" text="Category" />
+               <TableColumn fx:id="createdDateColumn" prefWidth="180.0" text="Created Date" />
+            </columns>
+         </TableView>
+      </VBox>
+   </VBox>
+   
+</VBox>

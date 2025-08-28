@@ -1,0 +1,207 @@
+/* Dark Theme CSS for ERP System */
+
+/* Root variables for dark theme */
+.root {
+    -fx-base: #2b2b2b;
+    -fx-background: #2b2b2b;
+    -fx-control-inner-background: #3c3c3c;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Main layout styling */
+.main-container {
+    -fx-background-color: #121212;
+}
+
+.sidebar {
+    -fx-background-color: #1e1e1e;
+    -fx-border-color: #404040;
+    -fx-border-width: 0 1 0 0;
+}
+
+.content-area {
+    -fx-background-color: #121212;
+    -fx-padding: 20;
+}
+
+/* Navigation buttons */
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-padding: 15 20;
+    -fx-alignment: center-left;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #404040;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: #333333;
+    -fx-text-fill: #90caf9;
+}
+
+.nav-button:focused {
+    -fx-background-color: #1976d2;
+    -fx-text-fill: #90caf9;
+}
+
+.nav-button.active {
+    -fx-background-color: #64b5f6;
+    -fx-text-fill: #121212;
+}
+
+/* Button styling */
+.button {
+    -fx-background-color: #64b5f6;
+    -fx-text-fill: #121212;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+    -fx-padding: 8 16;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #90caf9;
+}
+
+.button:pressed {
+    -fx-background-color: #1976d2;
+}
+
+.button.secondary {
+    -fx-background-color: transparent;
+    -fx-text-fill: #64b5f6;
+    -fx-border-color: #64b5f6;
+    -fx-border-width: 1;
+}
+
+.button.secondary:hover {
+    -fx-background-color: #263238;
+}
+
+.button.success {
+    -fx-background-color: #81c784;
+    -fx-text-fill: #121212;
+}
+
+.button.warning {
+    -fx-background-color: #ffb74d;
+    -fx-text-fill: #121212;
+}
+
+.button.error {
+    -fx-background-color: #e57373;
+    -fx-text-fill: white;
+}
+
+/* Form controls */
+.text-field, .text-area, .combo-box, .date-picker {
+    -fx-background-color: #1e1e1e;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #404040;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 8 12;
+    -fx-font-size: 13px;
+}
+
+.text-field:focused, .text-area:focused, .combo-box:focused, .date-picker:focused {
+    -fx-border-color: #64b5f6;
+    -fx-border-width: 2;
+}
+
+.text-field:hover, .text-area:hover, .combo-box:hover, .date-picker:hover {
+    -fx-border-color: #606060;
+}
+
+.label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+}
+
+/* Table styling */
+.table-view {
+    -fx-background-color: #1e1e1e;
+    -fx-border-color: #404040;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.table-view .column-header {
+    -fx-background-color: #2d2d2d;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: 600;
+    -fx-border-color: #404040;
+    -fx-border-width: 0 1 1 0;
+    -fx-padding: 12 8;
+}
+
+.table-row-cell {
+    -fx-background-color: #1e1e1e;
+    -fx-border-color: #404040;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #333333;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #1976d2;
+    -fx-text-fill: #90caf9;
+}
+
+.table-cell {
+    -fx-padding: 12 8;
+    -fx-alignment: center-left;
+    -fx-text-fill: #ffffff;
+}
+
+/* Cards and other elements */
+.card {
+    -fx-background-color: #1e1e1e;
+    -fx-border-color: #404040;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 20;
+}
+
+.card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.status-success {
+    -fx-background-color: #81c784;
+    -fx-text-fill: #121212;
+    -fx-background-radius: 12;
+    -fx-padding: 4 8;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.status-warning {
+    -fx-background-color: #ffb74d;
+    -fx-text-fill: #121212;
+    -fx-background-radius: 12;
+    -fx-padding: 4 8;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.status-error {
+    -fx-background-color: #e57373;
+    -fx-text-fill: white;
+    -fx-background-radius: 12;
+    -fx-padding: 4 8;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}

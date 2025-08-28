@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.erpsystem.controller.SuppliersController">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   
+   <!-- Toolbar Section -->
+   <VBox styleClass="card">
+      <VBox styleClass="card-header">
+         <Label styleClass="card-title" text="Suppliers Management">
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font>
+         </Label>
+      </VBox>
+      <VBox styleClass="card-content">
+         <HBox alignment="CENTER_LEFT" spacing="15.0">
+            <TextField fx:id="searchField" onKeyReleased="#searchSuppliers" 
+                      promptText="Search suppliers..." prefWidth="250.0" />
+            <Button fx:id="addBtn" onAction="#addSupplier" styleClass="button,success" text="➕ Add Supplier" />
+            <Button fx:id="editBtn" onAction="#editSupplier" text="✏️ Edit" disable="true" />
+            <Button fx:id="deleteBtn" onAction="#deleteSupplier" styleClass="button,error" text="🗑️ Delete" disable="true" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="refreshBtn" onAction="#refreshData" styleClass="button,secondary" text="🔄 Refresh" />
+         </HBox>
+      </VBox>
+   </VBox>
+   
+   <!-- Suppliers Table Section -->
+   <VBox styleClass="card" VBox.vgrow="ALWAYS">
+      <VBox styleClass="card-header">
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label styleClass="card-title" text="Suppliers List">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="recordCountLabel" styleClass="label" text="0 records" />
+         </HBox>
+      </VBox>
+      <VBox styleClass="card-content" VBox.vgrow="ALWAYS">
+         <TableView fx:id="suppliersTable" VBox.vgrow="ALWAYS">
+            <columns>
+               <TableColumn fx:id="supplierIdColumn" prefWidth="80.0" text="ID" />
+               <TableColumn fx:id="nameColumn" prefWidth="200.0" text="Supplier Name" />
+               <TableColumn fx:id="contactColumn" prefWidth="180.0" text="Contact" />
+               <TableColumn fx:id="addressColumn" prefWidth="250.0" text="Address" />
+               <TableColumn fx:id="createdDateColumn" prefWidth="150.0" text="Created Date" />
+            </columns>
+         </TableView>
+      </VBox>
+   </VBox>
+   
+   <!-- Add/Edit Form Dialog -->
+   <fx:define>
+      <Dialog fx:id="supplierDialog" title="Supplier Details">
+         <dialogPane>
+            <DialogPane>
+               <content>
+                  <VBox spacing="15.0" styleClass="form-container">
+                     <GridPane hgap="15.0" vgap="15.0">
+                        <columnConstraints>
+                           <ColumnConstraints minWidth="100.0" prefWidth="120.0" />
+                           <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" />
+                        </columnConstraints>
+                        <rowConstraints>
+                           <RowConstraints />
+                           <RowConstraints />
+                           <RowConstraints />
+                        </rowConstraints>
+                        
+                        <!-- Supplier Name -->
+                        <Label styleClass="form-label" text="Name *:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <TextField fx:id="nameField" promptText="Enter supplier name" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        
+                        <!-- Contact -->
+                        <Label styleClass="form-label" text="Contact:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <TextField fx:id="contactField" promptText="Enter contact information" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        
+                        <!-- Address -->
+                        <Label styleClass="form-label" text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <TextArea fx:id="addressField" prefRowCount="3" promptText="Enter supplier address" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        
+                     </GridPane>
+                     
+                     <!-- Validation Message -->
+                     <Label fx:id="validationLabel" styleClass="label" textFill="red" visible="false" />
+                     
+                  </VBox>
+               </content>
+               <buttonTypes>
+                  <ButtonType fx:constant="OK" />
+                  <ButtonType fx:constant="CANCEL" />
+               </buttonTypes>
+            </DialogPane>
+         </dialogPane>
+      </Dialog>
+   </fx:define>
+   
+</VBox>

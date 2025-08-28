@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   
+   <Label text="Purchasing Management" style="-fx-font-size: 24; -fx-font-weight: bold;" />
+   <Label text="This module is under development. Coming soon!" style="-fx-font-size: 16; -fx-text-fill: -fx-text-secondary;" />
+   
+   <VBox styleClass="card">
+      <padding>
+         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      </padding>
+      <Label text="Features to be implemented:" style="-fx-font-weight: bold;" />
+      <Label text="• Record new purchases" />
+      <Label text="• Select items and suppliers" />
+      <Label text="• Calculate total values automatically" />
+      <Label text="• View purchase history" />
+      <Label text="• Search purchases by date or supplier" />
+   </VBox>
+   
+</VBox>

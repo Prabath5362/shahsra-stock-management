@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.erpsystem.controller.CustomersController">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   
+   <!-- Toolbar Section -->
+   <VBox styleClass="card">
+      <VBox styleClass="card-header">
+         <Label styleClass="card-title" text="Customers Management">
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font>
+         </Label>
+      </VBox>
+      <VBox styleClass="card-content">
+         <HBox alignment="CENTER_LEFT" spacing="15.0">
+            <TextField fx:id="searchField" onKeyReleased="#searchCustomers" 
+                      promptText="Search customers..." prefWidth="250.0" />
+            <Button fx:id="addBtn" onAction="#addCustomer" styleClass="button,success" text="➕ Add Customer" />
+            <Button fx:id="editBtn" onAction="#editCustomer" text="✏️ Edit" disable="true" />
+            <Button fx:id="deleteBtn" onAction="#deleteCustomer" styleClass="button,error" text="🗑️ Delete" disable="true" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="refreshBtn" onAction="#refreshData" styleClass="button,secondary" text="🔄 Refresh" />
+         </HBox>
+      </VBox>
+   </VBox>
+   
+   <!-- Customers Table Section -->
+   <VBox styleClass="card" VBox.vgrow="ALWAYS">
+      <VBox styleClass="card-header">
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label styleClass="card-title" text="Customers List">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="recordCountLabel" styleClass="label" text="0 records" />
+         </HBox>
+      </VBox>
+      <VBox styleClass="card-content" VBox.vgrow="ALWAYS">
+         <TableView fx:id="customersTable" VBox.vgrow="ALWAYS">
+            <columns>
+               <TableColumn fx:id="customerIdColumn" prefWidth="80.0" text="ID" />
+               <TableColumn fx:id="nameColumn" prefWidth="200.0" text="Customer Name" />
+               <TableColumn fx:id="contactColumn" prefWidth="180.0" text="Contact" />
+               <TableColumn fx:id="addressColumn" prefWidth="250.0" text="Address" />
+               <TableColumn fx:id="createdDateColumn" prefWidth="150.0" text="Created Date" />
+            </columns>
+         </TableView>
+      </VBox>
+   </VBox>
+   
+</VBox>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.erpsystem.controller.DashboardController">
+   
+   <VBox spacing="20.0" styleClass="dashboard-container">
+      <padding>
+         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      </padding>
+      
+      <!-- Key Metrics Cards Row -->
+      <HBox spacing="20.0" styleClass="metrics-row">
+         
+         <!-- Total Sales Card -->
+         <VBox styleClass="metric-card" HBox.hgrow="ALWAYS">
+            <Label text="💰" style="-fx-font-size: 24;">
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <Label fx:id="totalSalesLabel" styleClass="metric-value" text="$0.00">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label styleClass="metric-label" text="Total Sales Revenue">
+               <font>
+                  <Font name="System" size="14.0" />
+               </font>
+            </Label>
+         </VBox>
+         
+         <!-- Total Purchases Card -->
+         <VBox styleClass="metric-card" HBox.hgrow="ALWAYS">
+            <Label text="🛒" style="-fx-font-size: 24;">
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <Label fx:id="totalPurchasesLabel" styleClass="metric-value" text="$0.00">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label styleClass="metric-label" text="Total Purchase Costs">
+               <font>
+                  <Font name="System" size="14.0" />
+               </font>
+            </Label>
+         </VBox>
+         
+         <!-- Total Profit Card -->
+         <VBox styleClass="metric-card" HBox.hgrow="ALWAYS">
+            <Label text="📈" style="-fx-font-size: 24;">
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <Label fx:id="totalProfitLabel" styleClass="metric-value" text="$0.00">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label styleClass="metric-label" text="Total Profit">
+               <font>
+                  <Font name="System" size="14.0" />
+               </font>
+            </Label>
+         </VBox>
+         
+         <!-- Inventory Value Card -->
+         <VBox styleClass="metric-card" HBox.hgrow="ALWAYS">
+            <Label text="📦" style="-fx-font-size: 24;">
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <Label fx:id="inventoryValueLabel" styleClass="metric-value" text="$0.00">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label styleClass="metric-label" text="Inventory Value">
+               <font>
+                  <Font name="System" size="14.0" />
+               </font>
+            </Label>
+         </VBox>
+         
+      </HBox>
+      
+      <!-- Charts Row -->
+      <HBox spacing="20.0" styleClass="charts-row">
+         
+         <!-- Monthly Revenue Chart -->
+         <VBox styleClass="card" HBox.hgrow="ALWAYS">
+            <VBox styleClass="card-header">
+               <Label styleClass="card-title" text="Monthly Revenue &amp; Costs">
+                  <font>
+                     <Font name="System Bold" size="16.0" />
+                  </font>
+               </Label>
+            </VBox>
+            <VBox styleClass="card-content" VBox.vgrow="ALWAYS">
+               <BarChart fx:id="monthlyChart" prefHeight="300.0" VBox.vgrow="ALWAYS">
+                  <xAxis>
+                     <CategoryAxis fx:id="monthlyXAxis" />
+                  </xAxis>
+                  <yAxis>
+                     <NumberAxis fx:id="monthlyYAxis" />
+                  </yAxis>
+               </BarChart>
+            </VBox>
+         </VBox>
+         
+         <!-- Profit Distribution Chart -->
+         <VBox styleClass="card" HBox.hgrow="ALWAYS">
+            <VBox styleClass="card-header">
+               <Label styleClass="card-title" text="Revenue Distribution">
+                  <font>
+                     <Font name="System Bold" size="16.0" />
+                  </font>
+               </Label>
+            </VBox>
+            <VBox styleClass="card-content" VBox.vgrow="ALWAYS">
+               <PieChart fx:id="revenueChart" prefHeight="300.0" VBox.vgrow="ALWAYS" />
+            </VBox>
+         </VBox>
+         
+      </HBox>
+      
+      <!-- Bottom Row: Top Customers and Items -->
+      <HBox spacing="20.0" styleClass="tables-row">
+         
+         <!-- Top Customers Table -->
+         <VBox styleClass="card" HBox.hgrow="ALWAYS">
+            <VBox styleClass="card-header">
+               <Label styleClass="card-title" text="Top Customers">
+                  <font>
+                     <Font name="System Bold" size="16.0" />
+                  </font>
+               </Label>
+            </VBox>
+            <VBox styleClass="card-content" VBox.vgrow="ALWAYS">
+               <TableView fx:id="topCustomersTable" prefHeight="250.0" VBox.vgrow="ALWAYS">
+                  <columns>
+                     <TableColumn fx:id="customerNameColumn" prefWidth="150.0" text="Customer Name" />
+                     <TableColumn fx:id="customerSalesColumn" prefWidth="120.0" text="Total Sales" />
+                  </columns>
+               </TableView>
+            </VBox>
+         </VBox>
+         
+         <!-- Top Items Table -->
+         <VBox styleClass="card" HBox.hgrow="ALWAYS">
+            <VBox styleClass="card-header">
+               <Label styleClass="card-title" text="Top Selling Items">
+                  <font>
+                     <Font name="System Bold" size="16.0" />
+                  </font>
+               </Label>
+            </VBox>
+            <VBox styleClass="card-content" VBox.vgrow="ALWAYS">
+               <TableView fx:id="topItemsTable" prefHeight="250.0" VBox.vgrow="ALWAYS">
+                  <columns>
+                     <TableColumn fx:id="itemNameColumn" prefWidth="150.0" text="Item Name" />
+                     <TableColumn fx:id="itemQuantityColumn" prefWidth="80.0" text="Quantity" />
+                     <TableColumn fx:id="itemValueColumn" prefWidth="100.0" text="Total Value" />
+                  </columns>
+               </TableView>
+            </VBox>
+         </VBox>
+         
+      </HBox>
+      
+      <!-- Inventory Status Row -->
+      <HBox spacing="20.0" styleClass="status-row">
+         
+         <!-- Inventory Summary Card -->
+         <VBox styleClass="card" HBox.hgrow="ALWAYS">
+            <VBox styleClass="card-header">
+               <Label styleClass="card-title" text="Inventory Summary">
+                  <font>
+                     <Font name="System Bold" size="16.0" />
+                  </font>
+               </Label>
+            </VBox>
+            <VBox styleClass="card-content" spacing="10.0">
+               <HBox alignment="CENTER_LEFT" spacing="20.0">
+                  <VBox alignment="CENTER" spacing="5.0" HBox.hgrow="ALWAYS">
+                     <Label fx:id="totalItemsLabel" styleClass="metric-value" style="-fx-font-size: 24;" text="0" />
+                     <Label styleClass="metric-label" text="Total Items" />
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="5.0" HBox.hgrow="ALWAYS">
+                     <Label fx:id="inStockItemsLabel" styleClass="metric-value" style="-fx-font-size: 24; -fx-text-fill: -fx-success-color;" text="0" />
+                     <Label styleClass="metric-label" text="In Stock" />
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="5.0" HBox.hgrow="ALWAYS">
+                     <Label fx:id="lowStockItemsLabel" styleClass="metric-value" style="-fx-font-size: 24; -fx-text-fill: -fx-warning-color;" text="0" />
+                     <Label styleClass="metric-label" text="Low Stock" />
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="5.0" HBox.hgrow="ALWAYS">
+                     <Label fx:id="outOfStockItemsLabel" styleClass="metric-value" style="-fx-font-size: 24; -fx-text-fill: -fx-error-color;" text="0" />
+                     <Label styleClass="metric-label" text="Out of Stock" />
+                  </VBox>
+               </HBox>
+            </VBox>
+         </VBox>
+         
+         <!-- Quick Actions Card -->
+         <VBox styleClass="card" HBox.hgrow="ALWAYS">
+            <VBox styleClass="card-header">
+               <Label styleClass="card-title" text="Quick Actions">
+                  <font>
+                     <Font name="System Bold" size="16.0" />
+                  </font>
+               </Label>
+            </VBox>
+            <VBox styleClass="card-content" spacing="10.0">
+               <Button fx:id="addPurchaseBtn" maxWidth="1.7976931348623157E308" onAction="#addPurchase" text="➕ Add Purchase" />
+               <Button fx:id="addSaleBtn" maxWidth="1.7976931348623157E308" onAction="#addSale" text="💰 Add Sale" />
+               <Button fx:id="viewInventoryBtn" maxWidth="1.7976931348623157E308" onAction="#viewInventory" text="📋 View Inventory" />
+               <Button fx:id="refreshBtn" maxWidth="1.7976931348623157E308" onAction="#refreshData" styleClass="button,secondary" text="🔄 Refresh Data" />
+            </VBox>
+         </VBox>
+         
+      </HBox>
+      
+   </VBox>
+   
+</ScrollPane>
