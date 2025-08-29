@@ -5,24 +5,59 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<VBox spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.erpsystem.controller.SalesController">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    
-   <Label text="Sales Management" style="-fx-font-size: 24; -fx-font-weight: bold;" />
-   <Label text="This module is under development. Coming soon!" style="-fx-font-size: 16; -fx-text-fill: -fx-text-secondary;" />
-   
+   <!-- Toolbar Section -->
    <VBox styleClass="card">
-      <padding>
-         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-      </padding>
-      <Label text="Features to be implemented:" style="-fx-font-weight: bold;" />
-      <Label text="• Record new sales transactions" />
-      <Label text="• Select items and customers" />
-      <Label text="• Calculate total values automatically" />
-      <Label text="• View sales history" />
-      <Label text="• Search sales by date or customer" />
+      <VBox styleClass="card-header">
+         <Label styleClass="card-title" text="Sales Management">
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font>
+         </Label>
+      </VBox>
+      <VBox styleClass="card-content">
+         <HBox alignment="CENTER_LEFT" spacing="15.0">
+            <TextField fx:id="searchField" onKeyReleased="#searchSales" 
+                      promptText="Search by customer or item..." prefWidth="250.0" />
+            <Button fx:id="addBtn" onAction="#addSale" styleClass="button,success" text="➕ Add Sale" />
+            <Button fx:id="editBtn" onAction="#editSale" text="✏️ Edit" disable="true" />
+            <Button fx:id="deleteBtn" onAction="#deleteSale" styleClass="button,error" text="🗑️ Delete" disable="true" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="refreshBtn" onAction="#refreshData" styleClass="button,secondary" text="🔄 Refresh" />
+         </HBox>
+      </VBox>
+   </VBox>
+   
+   <!-- Sales Table Section -->
+   <VBox styleClass="card" VBox.vgrow="ALWAYS">
+      <VBox styleClass="card-header">
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label styleClass="card-title" text="Sales List">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="recordCountLabel" styleClass="label" text="0 records" />
+         </HBox>
+      </VBox>
+      <VBox styleClass="card-content" VBox.vgrow="ALWAYS">
+         <TableView fx:id="salesTable" VBox.vgrow="ALWAYS">
+            <columns>
+               <TableColumn fx:id="saleIdColumn" prefWidth="80.0" text="ID" />
+               <TableColumn fx:id="saleDateColumn" prefWidth="120.0" text="Date" />
+               <TableColumn fx:id="itemNameColumn" prefWidth="180.0" text="Item" />
+               <TableColumn fx:id="customerNameColumn" prefWidth="150.0" text="Customer" />
+               <TableColumn fx:id="quantityColumn" prefWidth="80.0" text="Quantity" />
+               <TableColumn fx:id="salesRateColumn" prefWidth="100.0" text="Rate" />
+               <TableColumn fx:id="totalValueColumn" prefWidth="120.0" text="Total Value" />
+            </columns>
+         </TableView>
+      </VBox>
    </VBox>
    
 </VBox>

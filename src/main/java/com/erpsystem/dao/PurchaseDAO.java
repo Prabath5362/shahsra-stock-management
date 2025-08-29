@@ -49,29 +49,60 @@ public class PurchaseDAO implements BaseDAO<Purchase, Integer> {
     
     @Override
     public Integer insert(Purchase purchase) throws SQLException {
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(INSERT_SQL, Statement.RETURN_GENERATED_KEYS)) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        PreparedStatement idStmt = null;
+        ResultSet rs = null;
+        
+        try {
+            conn = DatabaseUtil.getConnection();
+            conn.setAutoCommit(false); // Start transaction
             
+            stmt = conn.prepareStatement(INSERT_SQL);
             stmt.setInt(1, purchase.getItemId());
             stmt.setInt(2, purchase.getQuantity());
             stmt.setInt(3, purchase.getSupplierId());
             stmt.setBigDecimal(4, purchase.getPurchaseRate());
             stmt.setBigDecimal(5, purchase.getTotalValue());
-            stmt.setDate(6, Date.valueOf(purchase.getPurchaseDate()));
+            stmt.setString(6, purchase.getPurchaseDate().toString());
             
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Creating purchase failed, no rows affected.");
             }
             
-            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    int generatedId = generatedKeys.getInt(1);
-                    purchase.setPurchaseId(generatedId);
-                    return generatedId;
-                } else {
-                    throw new SQLException("Creating purchase failed, no ID obtained.");
+            // Get the last inserted ID
+            idStmt = conn.prepareStatement("SELECT last_insert_rowid()");
+            rs = idStmt.executeQuery();
+            
+            if (rs.next()) {
+                int generatedId = rs.getInt(1);
+                purchase.setPurchaseId(generatedId);
+                conn.commit(); // Commit transaction
+                return generatedId;
+            } else {
+                throw new SQLException("Creating purchase failed, no ID obtained.");
+            }
+            
+        } catch (SQLException e) {
+            if (conn != null) {
+                try {
+                    conn.rollback(); // Rollback on error
+                } catch (SQLException rollbackEx) {
+                    e.addSuppressed(rollbackEx);
                 }
+            }
+            throw e;
+        } finally {
+            // Close resources
+            if (rs != null) try { rs.close(); } catch (SQLException e) { /* ignore */ }
+            if (idStmt != null) try { idStmt.close(); } catch (SQLException e) { /* ignore */ }
+            if (stmt != null) try { stmt.close(); } catch (SQLException e) { /* ignore */ }
+            if (conn != null) {
+                try {
+                    conn.setAutoCommit(true);
+                    conn.close();
+                } catch (SQLException e) { /* ignore */ }
             }
         }
     }
@@ -86,7 +117,7 @@ public class PurchaseDAO implements BaseDAO<Purchase, Integer> {
             stmt.setInt(3, purchase.getSupplierId());
             stmt.setBigDecimal(4, purchase.getPurchaseRate());
             stmt.setBigDecimal(5, purchase.getTotalValue());
-            stmt.setDate(6, Date.valueOf(purchase.getPurchaseDate()));
+            stmt.setString(6, purchase.getPurchaseDate().toString());
             stmt.setInt(7, purchase.getPurchaseId());
             
             int affectedRows = stmt.executeUpdate();
@@ -164,33 +195,6 @@ public class PurchaseDAO implements BaseDAO<Purchase, Integer> {
     }
     
     /**
-     * Find purchases by item ID
-     */
-    public List<Purchase> findByItemId(int itemId) throws SQLException {
-        String sql = "SELECT p.*, i.name as item_name, s.name as supplier_name " +
-                    "FROM purchases p " +
-                    "LEFT JOIN items i ON p.item_id = i.item_id " +
-                    "LEFT JOIN suppliers s ON p.supplier_id = s.supplier_id " +
-                    "WHERE p.item_id = ? ORDER BY p.purchase_date DESC";
-        
-        List<Purchase> purchases = new ArrayList<>();
-        
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
-            stmt.setInt(1, itemId);
-            
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    purchases.add(mapResultSetToPurchase(rs));
-                }
-            }
-        }
-        
-        return purchases;
-    }
-    
-    /**
      * Find purchases by supplier ID
      */
     public List<Purchase> findBySupplierId(int supplierId) throws SQLException {
@@ -232,8 +236,8 @@ public class PurchaseDAO implements BaseDAO<Purchase, Integer> {
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
-            stmt.setDate(1, Date.valueOf(startDate));
-            stmt.setDate(2, Date.valueOf(endDate));
+            stmt.setString(1, startDate.toString());
+            stmt.setString(2, endDate.toString());
             
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -246,7 +250,95 @@ public class PurchaseDAO implements BaseDAO<Purchase, Integer> {
     }
     
     /**
-     * Get total purchase quantity for an item
+     * Search purchases by supplier name or item name
+     */
+    public List<Purchase> searchPurchases(String searchTerm) throws SQLException {
+        String sql = "SELECT p.*, i.name as item_name, s.name as supplier_name " +
+                    "FROM purchases p " +
+                    "LEFT JOIN items i ON p.item_id = i.item_id " +
+                    "LEFT JOIN suppliers s ON p.supplier_id = s.supplier_id " +
+                    "WHERE i.name LIKE ? OR s.name LIKE ? " +
+                    "ORDER BY p.purchase_date DESC";
+        
+        List<Purchase> purchases = new ArrayList<>();
+        
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            String searchPattern = "%" + searchTerm + "%";
+            stmt.setString(1, searchPattern);
+            stmt.setString(2, searchPattern);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    purchases.add(mapResultSetToPurchase(rs));
+                }
+            }
+        }
+        
+        return purchases;
+    }
+    
+    /**
+     * Map ResultSet to Purchase object
+     */
+    private Purchase mapResultSetToPurchase(ResultSet rs) throws SQLException {
+        Purchase purchase = new Purchase();
+        
+        purchase.setPurchaseId(rs.getInt("purchase_id"));
+        purchase.setItemId(rs.getInt("item_id"));
+        purchase.setQuantity(rs.getInt("quantity"));
+        purchase.setSupplierId(rs.getInt("supplier_id"));
+        purchase.setPurchaseRate(rs.getBigDecimal("purchase_rate"));
+        purchase.setTotalValue(rs.getBigDecimal("total_value"));
+        purchase.setPurchaseDate(LocalDate.parse(rs.getString("purchase_date")));
+        
+        // Parse created_date if available with defensive handling
+        String createdDateStr = rs.getString("created_date");
+        if (createdDateStr != null && !createdDateStr.isEmpty()) {
+            try {
+                // Try parsing as LocalDateTime first (ISO format with T)
+                if (createdDateStr.contains("T")) {
+                    purchase.setCreatedDate(LocalDateTime.parse(createdDateStr));
+                } else {
+                    // Handle SQLite format (space separator) - convert to ISO format
+                    String isoFormat = createdDateStr.replace(" ", "T");
+                    purchase.setCreatedDate(LocalDateTime.parse(isoFormat));
+                }
+            } catch (Exception e) {
+                // Fallback: try using timestamp parsing
+                try {
+                    Timestamp createdTimestamp = rs.getTimestamp("created_date");
+                    if (createdTimestamp != null) {
+                        purchase.setCreatedDate(createdTimestamp.toLocalDateTime());
+                    } else {
+                        purchase.setCreatedDate(LocalDateTime.now());
+                    }
+                } catch (SQLException ex) {
+                    // Ultimate fallback: use current time
+                    purchase.setCreatedDate(LocalDateTime.now());
+                }
+            }
+        } else {
+            purchase.setCreatedDate(LocalDateTime.now());
+        }
+        
+        // Set display properties from joins
+        String itemName = rs.getString("item_name");
+        if (itemName != null) {
+            purchase.setItemName(itemName);
+        }
+        
+        String supplierName = rs.getString("supplier_name");
+        if (supplierName != null) {
+            purchase.setSupplierName(supplierName);
+        }
+        
+        return purchase;
+    }
+    
+    /**
+     * Get total quantity purchased for an item
      */
     public int getTotalQuantityByItemId(int itemId) throws SQLException {
         String sql = "SELECT COALESCE(SUM(quantity), 0) FROM purchases WHERE item_id = ?";
@@ -262,15 +354,15 @@ public class PurchaseDAO implements BaseDAO<Purchase, Integer> {
                 }
             }
         }
+        
         return 0;
     }
     
     /**
-     * Get average purchase rate for an item (weighted by quantity)
+     * Get average purchase rate for an item
      */
     public BigDecimal getAveragePurchaseRateByItemId(int itemId) throws SQLException {
-        String sql = "SELECT COALESCE(SUM(purchase_rate * quantity) / SUM(quantity), 0) " +
-                    "FROM purchases WHERE item_id = ? AND quantity > 0";
+        String sql = "SELECT AVG(purchase_rate) FROM purchases WHERE item_id = ?";
         
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -279,35 +371,12 @@ public class PurchaseDAO implements BaseDAO<Purchase, Integer> {
             
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getBigDecimal(1);
+                    BigDecimal result = rs.getBigDecimal(1);
+                    return result != null ? result : BigDecimal.ZERO;
                 }
             }
         }
+        
         return BigDecimal.ZERO;
-    }
-    
-    /**
-     * Map ResultSet to Purchase object
-     */
-    private Purchase mapResultSetToPurchase(ResultSet rs) throws SQLException {
-        Purchase purchase = new Purchase();
-        purchase.setPurchaseId(rs.getInt("purchase_id"));
-        purchase.setItemId(rs.getInt("item_id"));
-        purchase.setQuantity(rs.getInt("quantity"));
-        purchase.setSupplierId(rs.getInt("supplier_id"));
-        purchase.setPurchaseRate(rs.getBigDecimal("purchase_rate"));
-        purchase.setTotalValue(rs.getBigDecimal("total_value"));
-        purchase.setPurchaseDate(rs.getDate("purchase_date").toLocalDate());
-        
-        Timestamp createdTimestamp = rs.getTimestamp("created_date");
-        if (createdTimestamp != null) {
-            purchase.setCreatedDate(createdTimestamp.toLocalDateTime());
-        }
-        
-        // Set display names if available
-        purchase.setItemName(rs.getString("item_name"));
-        purchase.setSupplierName(rs.getString("supplier_name"));
-        
-        return purchase;
     }
 }

@@ -53,8 +53,8 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Set initial active button
-        activeButton = dashboardBtn;
-        updateActiveButton(dashboardBtn);
+        activeButton = purchasingBtn;
+        updateActiveButton(purchasingBtn);
         
         // Update theme toggle button text based on current theme (now starting with dark)
         updateThemeToggleButton();
@@ -62,8 +62,8 @@ public class MainController implements Initializable {
         // Check database connection status
         updateConnectionStatus();
         
-        // Load default view (Dashboard)
-        showDashboard();
+        // Load default view (Purchasing for testing)
+        showPurchasing();
         
         // Update status to reflect light theme start
         updateStatus("Welcome to ERP System - Light theme enabled");
@@ -149,21 +149,47 @@ public class MainController implements Initializable {
      */
     private boolean loadView(String fxmlPath, String viewName) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            // Debug logging
+            System.out.println("Attempting to load view: " + viewName + " from path: " + fxmlPath);
+            
+            // Validate resource exists
+            URL resource = getClass().getResource(fxmlPath);
+            if (resource == null) {
+                throw new IOException("Resource not found: " + fxmlPath);
+            }
+            System.out.println("Resource found at: " + resource.toString());
+            
+            FXMLLoader loader = new FXMLLoader(resource);
             Node view = loader.load();
+            
+            // Verify controller initialization
+            Object controller = loader.getController();
+            if (controller == null) {
+                throw new IOException("Controller not initialized for: " + viewName);
+            }
+            System.out.println("Controller loaded: " + controller.getClass().getSimpleName());
             
             contentArea.getChildren().clear();
             contentArea.getChildren().add(view);
             
             updateStatus(viewName + " loaded successfully");
+            System.out.println("Successfully loaded " + viewName);
             return true;
             
         } catch (IOException e) {
-            System.err.println("Error loading " + viewName + ": " + e.getMessage());
+            System.err.println("Detailed error loading " + viewName + ": " + e.getMessage());
+            e.printStackTrace();
             
             // Show a placeholder if the view doesn't exist yet
             showPlaceholder(viewName);
-            updateStatus("Error loading " + viewName + " - showing placeholder");
+            updateStatus("Error loading " + viewName + " - " + e.getMessage());
+            return false;
+        } catch (Exception e) {
+            System.err.println("Unexpected error loading " + viewName + ": " + e.getMessage());
+            e.printStackTrace();
+            
+            showPlaceholder(viewName);
+            updateStatus("Unexpected error loading " + viewName + " - " + e.getMessage());
             return false;
         }
     }

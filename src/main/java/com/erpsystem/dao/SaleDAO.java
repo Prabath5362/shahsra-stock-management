@@ -287,6 +287,36 @@ public class SaleDAO implements BaseDAO<Sale, Integer> {
     }
     
     /**
+     * Search sales by customer name or item name
+     */
+    public List<Sale> searchSales(String searchTerm) throws SQLException {
+        String sql = "SELECT s.*, i.name as item_name, c.name as customer_name " +
+                    "FROM sales s " +
+                    "LEFT JOIN items i ON s.item_id = i.item_id " +
+                    "LEFT JOIN customers c ON s.customer_id = c.customer_id " +
+                    "WHERE i.name LIKE ? OR c.name LIKE ? " +
+                    "ORDER BY s.sale_date DESC";
+        
+        List<Sale> sales = new ArrayList<>();
+        
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            String searchPattern = "%" + searchTerm + "%";
+            stmt.setString(1, searchPattern);
+            stmt.setString(2, searchPattern);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    sales.add(mapResultSetToSale(rs));
+                }
+            }
+        }
+        
+        return sales;
+    }
+    
+    /**
      * Map ResultSet to Sale object
      */
     private Sale mapResultSetToSale(ResultSet rs) throws SQLException {

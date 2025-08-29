@@ -188,13 +188,9 @@ public class Purchase {
         }
     }
     
-    // Formatted display methods
-    public String getPurchaseRateDisplay() {
-        return "$" + purchaseRate.get().toString();
-    }
-    
-    public String getTotalValueDisplay() {
-        return "$" + totalValue.get().toString();
+    @Override
+    public String toString() {
+        return "Purchase ID: " + purchaseId.get() + " - " + itemName.get();
     }
     
     @Override

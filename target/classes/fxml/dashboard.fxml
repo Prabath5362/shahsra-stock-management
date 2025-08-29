@@ -223,9 +223,9 @@
                </Label>
             </VBox>
             <VBox styleClass="card-content" spacing="10.0">
-               <Button fx:id="addPurchaseBtn" maxWidth="1.7976931348623157E308" onAction="#addPurchase" text="➕ Add Purchase" />
-               <Button fx:id="addSaleBtn" maxWidth="1.7976931348623157E308" onAction="#addSale" text="💰 Add Sale" />
-               <Button fx:id="viewInventoryBtn" maxWidth="1.7976931348623157E308" onAction="#viewInventory" text="📋 View Inventory" />
+               <Button fx:id="addPurchaseBtn" maxWidth="Infinity" onAction="#addPurchase" text="➕ Add Purchase" />
+               <Button fx:id="addSaleBtn" maxWidth="Infinity" onAction="#addSale" text="💰 Add Sale" />
+               <Button fx:id="viewInventoryBtn" maxWidth="Infinity" onAction="#viewInventory" text="📋 View Inventory" />
                <Button fx:id="refreshBtn" maxWidth="1.7976931348623157E308" onAction="#refreshData" styleClass="button,secondary" text="🔄 Refresh Data" />
             </VBox>
          </VBox>

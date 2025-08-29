@@ -5,24 +5,59 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<VBox spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.erpsystem.controller.PurchasesController">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    
-   <Label text="Purchasing Management" style="-fx-font-size: 24; -fx-font-weight: bold;" />
-   <Label text="This module is under development. Coming soon!" style="-fx-font-size: 16; -fx-text-fill: -fx-text-secondary;" />
-   
+   <!-- Toolbar Section -->
    <VBox styleClass="card">
-      <padding>
-         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-      </padding>
-      <Label text="Features to be implemented:" style="-fx-font-weight: bold;" />
-      <Label text="• Record new purchases" />
-      <Label text="• Select items and suppliers" />
-      <Label text="• Calculate total values automatically" />
-      <Label text="• View purchase history" />
-      <Label text="• Search purchases by date or supplier" />
+      <VBox styleClass="card-header">
+         <Label styleClass="card-title" text="Purchasing Management">
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font>
+         </Label>
+      </VBox>
+      <VBox styleClass="card-content">
+         <HBox alignment="CENTER_LEFT" spacing="15.0">
+            <TextField fx:id="searchField" onKeyReleased="#searchPurchases" 
+                      promptText="Search by supplier or item..." prefWidth="250.0" />
+            <Button fx:id="addBtn" onAction="#addPurchase" styleClass="button,success" text="➕ Add Purchase" />
+            <Button fx:id="editBtn" onAction="#editPurchase" text="✏️ Edit" disable="true" />
+            <Button fx:id="deleteBtn" onAction="#deletePurchase" styleClass="button,error" text="🗑️ Delete" disable="true" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="refreshBtn" onAction="#refreshData" styleClass="button,secondary" text="🔄 Refresh" />
+         </HBox>
+      </VBox>
+   </VBox>
+   
+   <!-- Purchases Table Section -->
+   <VBox styleClass="card" VBox.vgrow="ALWAYS">
+      <VBox styleClass="card-header">
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label styleClass="card-title" text="Purchases List">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="recordCountLabel" styleClass="label" text="0 records" />
+         </HBox>
+      </VBox>
+      <VBox styleClass="card-content" VBox.vgrow="ALWAYS">
+         <TableView fx:id="purchasesTable" VBox.vgrow="ALWAYS">
+            <columns>
+               <TableColumn fx:id="purchaseIdColumn" prefWidth="80.0" text="ID" />
+               <TableColumn fx:id="purchaseDateColumn" prefWidth="120.0" text="Date" />
+               <TableColumn fx:id="itemNameColumn" prefWidth="180.0" text="Item" />
+               <TableColumn fx:id="supplierNameColumn" prefWidth="150.0" text="Supplier" />
+               <TableColumn fx:id="quantityColumn" prefWidth="80.0" text="Quantity" />
+               <TableColumn fx:id="purchaseRateColumn" prefWidth="100.0" text="Rate" />
+               <TableColumn fx:id="totalValueColumn" prefWidth="120.0" text="Total Value" />
+            </columns>
+         </TableView>
+      </VBox>
    </VBox>
    
 </VBox>

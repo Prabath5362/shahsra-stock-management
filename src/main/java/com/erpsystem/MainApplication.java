@@ -152,6 +152,24 @@ public class MainApplication extends Application {
     }
     
     /**
+     * Show a success alert dialog
+     * 
+     * @param title The title of the alert
+     * @param message The message to display
+     */
+    public static void showSuccessAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        
+        // Apply current theme to dialog
+        applyThemeToDialog(alert);
+        
+        alert.showAndWait();
+    }
+    
+    /**
      * Show a warning alert dialog
      * 
      * @param title The title of the alert

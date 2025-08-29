@@ -52,7 +52,46 @@
     -fx-padding: 4 0 0 0;
 }
 
-/* Navigation buttons - will be moved after button styles for proper precedence */
+/* Navigation buttons - Enhanced specificity to prevent conflicts */
+.sidebar .nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #7d8590;
+    -fx-font-size: 15px;
+    -fx-font-weight: 500;
+    -fx-padding: 16 24;
+    -fx-alignment: center-left;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+    -fx-background-radius: 6;
+    -fx-margin: 0 8 4 8;
+}
+
+.sidebar .nav-button:hover {
+    -fx-background-color: rgba(46, 160, 67, 0.15);
+    -fx-text-fill: #7ee787;
+    -fx-background-radius: 6;
+}
+
+.sidebar .nav-button:pressed {
+    -fx-background-color: rgba(88, 166, 255, 0.2);
+    -fx-text-fill: #79c0ff;
+    -fx-background-radius: 6;
+}
+
+.sidebar .nav-button:focused {
+    -fx-background-color: rgba(56, 139, 253, 0.15);
+    -fx-text-fill: #58a6ff;
+    -fx-border-color: #1f6feb;
+    -fx-border-width: 1;
+    -fx-background-radius: 6;
+}
+
+.sidebar .nav-button.active {
+    -fx-background-color: #0969da;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 6;
+    -fx-border-width: 0;
+}
 
 /* Button styling */
 .button {
@@ -125,52 +164,6 @@
 
 .button.error:hover {
     -fx-background-color: #f85149;
-}
-
-/* Navigation button styling - placed after generic button styles for proper CSS precedence */
-.nav-button {
-    -fx-background-color: transparent !important;
-    -fx-text-fill: #9ca3af !important;
-    -fx-font-size: 15px !important;
-    -fx-font-weight: 500 !important;
-    -fx-padding: 16 24 !important;
-    -fx-alignment: center-left;
-    -fx-border-width: 0 !important;
-    -fx-cursor: hand;
-    -fx-background-radius: 6 !important;
-    -fx-margin: 0 8 4 8;
-    -fx-effect: none !important;
-}
-
-.nav-button:hover {
-    -fx-background-color: rgba(46, 160, 67, 0.15) !important;
-    -fx-text-fill: #7ee787 !important;
-    -fx-background-radius: 6 !important;
-    -fx-effect: none !important;
-}
-
-.nav-button:pressed {
-    -fx-background-color: rgba(88, 166, 255, 0.2) !important;
-    -fx-text-fill: #79c0ff !important;
-    -fx-background-radius: 6 !important;
-    -fx-effect: none !important;
-}
-
-.nav-button:focused {
-    -fx-background-color: rgba(56, 139, 253, 0.15) !important;
-    -fx-text-fill: #58a6ff !important;
-    -fx-border-color: #1f6feb !important;
-    -fx-border-width: 1 !important;
-    -fx-background-radius: 6 !important;
-    -fx-effect: none !important;
-}
-
-.nav-button.active {
-    -fx-background-color: #0969da !important;
-    -fx-text-fill: #ffffff !important;
-    -fx-background-radius: 6 !important;
-    -fx-border-width: 0 !important;
-    -fx-effect: none !important;
 }
 
 /* Form controls */

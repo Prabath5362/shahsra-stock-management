@@ -10,4 +10,7 @@ module erpsystem {
     exports com.erpsystem.dao;
     exports com.erpsystem.service;
     exports com.erpsystem.util;
+    
+    opens com.erpsystem.controller to javafx.fxml;
+    opens com.erpsystem.model to javafx.base;
 }
